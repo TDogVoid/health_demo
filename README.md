@@ -1,6 +1,6 @@
 # Health_DEMO
 
-This is <strong>Unmaintained<strong>
+This is <strong>Unmaintained</strong>
 
 I'm making this available as an example not intended for use.
 
