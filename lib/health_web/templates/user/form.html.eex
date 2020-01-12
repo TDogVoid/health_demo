@@ -1,0 +1,49 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :name %>
+    <%= text_input f, :name, class: "form-control" %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <%= inputs_for f, :credential, fn cf -> %>
+
+    <div class="form-group">
+      <%= label cf, :email %>
+      <%= text_input cf, :email, class: "form-control" %>
+      <%= error_tag cf, :email %>
+    </div>
+
+    <div class="form-group">
+      <%= label cf, :password %>
+      <%= password_input cf, :password, class: "form-control" %>
+      <%= error_tag cf, :password %>
+    </div>
+
+    <div class="form-group">
+      <%= label cf, :password_confirmation %>
+      <%= password_input cf, :password_confirmation, class: "form-control" %>
+      <%= error_tag cf, :password_confirmation %>
+    </div>
+
+    <div class="form-group">
+      <%= label f, :timezone %>
+      <%= if f.data.timezone do %>
+        <%= select f, :timezone, Tzdata.zone_list(), selected: f.data.timezone, class: "form-control" %>
+      <% else %>
+        <%= select f, :timezone, Tzdata.zone_list(), selected: "America/New_York", class: "form-control" %>
+      <% end %>
+      <%= error_tag f, :timezone %>
+    </div>
+
+  <% end %>
+
+  <div class="form-group">
+    <%= submit "Save", class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,38 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :reading %>
+    <%= number_input f, :reading, class: "form-control" %>
+    <%= error_tag f, :reading %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :period %>
+    <%= select f, :period_id, Enum.map(@periods, &{&1.name, &1.id}), selected: f.data.period_id, class: "form-control" %>
+    <%= error_tag f, :period_id %>
+  </div>
+
+  <div class="form-group">
+    <%= if f.data.time != nil do %>
+      <%= my_datetime_select f, :time, class: "form-control", value: convert_datetime_to_local(f.data.time, @conn.assigns.current_user) %>
+    <% else %>
+      <%= my_datetime_select f, :time, class: "form-control", default: current_datetime(@conn.assigns.current_user) %>
+    <% end %>
+    <%= error_tag f, :time %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :note %>
+    <%= textarea f, :note, class: "form-control" %>
+    <%= error_tag f, :note %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Save", class: "btn btn-primary" %>
+  </div>
+<% end %>

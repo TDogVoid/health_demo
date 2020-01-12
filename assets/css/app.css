@@ -1,0 +1,30 @@
+/* This file is for your main application css. */
+
+@import "../../deps/phoenix_live_view/assets/css/live_view.css";
+
+.fab {
+	width: 70px;
+	height: 70px;
+	background-color: red;
+	border-radius: 50%;
+	box-shadow: 0 6px 10px 0 #666;
+
+	font-size: 50px;
+	line-height: 60px;
+	color: white;
+	text-align: center;
+
+	position: fixed;
+	right: 50px;
+	bottom: 50px;
+
+	transition: all 0.1s ease-in-out;
+
+}
+
+.fab:hover {
+	box-shadow: 0 6px 14px 0 #666;
+	transform: scale(1.05);
+	color: currentColor;
+	text-decoration: none;
+}

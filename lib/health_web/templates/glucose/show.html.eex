@@ -1,0 +1,28 @@
+<h1>Show Glucose</h1>
+
+<ul>
+
+  <li>
+    <strong>Reading:</strong>
+    <%= @glucose.reading %>
+  </li>
+  
+  <li>
+    <strong>Period:</strong>
+    <%= @glucose.period.name %>
+  </li>
+
+  <li>
+    <strong>Time:</strong>
+    <%= format_local_datetime(@glucose.time, @conn.assigns.current_user) %>
+  </li>
+
+  <li>
+    <strong>Note:</strong>
+    <%= @glucose.note %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.glucose_path(@conn, :edit, @glucose) %></span>
+<span><%= link "Back", to: Routes.live_path(@conn, GlucoseLive.Index) %></span>

@@ -1,0 +1,13 @@
+<h1>Show Period</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @period.name %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.period_path(@conn, :edit, @period) %></span>
+<span><%= link "Back", to: Routes.live_path(@conn, Index) %></span>

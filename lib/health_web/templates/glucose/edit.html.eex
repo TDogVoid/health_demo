@@ -1,0 +1,5 @@
+<h1>Edit Glucose</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.glucose_path(@conn, :update, @glucose)) %>
+
+<span><%= link "Back", to: Routes.live_path(@conn, GlucoseLive.Index) %></span>

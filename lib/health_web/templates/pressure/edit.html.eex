@@ -1,0 +1,5 @@
+<h1>Edit Pressure</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.pressure_path(@conn, :update, @pressure)) %>
+
+<span><%= link "Back", to: Routes.live_path(@conn, PressureLive.Index) %></span>

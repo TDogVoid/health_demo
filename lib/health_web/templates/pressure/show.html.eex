@@ -1,0 +1,28 @@
+<h1>Show Pressure</h1>
+
+<ul>
+
+  <li>
+    <strong>Systolic:</strong>
+    <%= @pressure.systolic %>
+  </li>
+
+  <li>
+    <strong>Diastolic:</strong>
+    <%= @pressure.diastolic %>
+  </li>
+
+  <li>
+    <strong>Heart rate:</strong>
+    <%= @pressure.heart_rate %>
+  </li>
+
+  <li>
+    <strong>Time:</strong>
+    <%= format_local_datetime(@pressure.time, @conn.assigns.current_user) %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.pressure_path(@conn, :edit, @pressure) %></span>
+<span><%= link "Back", to: Routes.live_path(@conn, PressureLive.Index) %></span>

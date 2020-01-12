@@ -1,0 +1,76 @@
+<h1>Listing Periods</h1>
+<div class="container-fluid" >
+  <form phx-change="show_cols">
+    <%= for {col,title} <- @cols do %>
+      <input name="<%= col %>" type="hidden" value="false">
+      <input type="checkbox" name="<%= col %>" value="true" <%= checked?(@show_cols[col]) %> ><%= title %>
+    <% end %>
+    <span><%= link "Add", to: Routes.period_path(@socket, :new), class: "btn btn-primary" %></span>
+  </form>
+  <table class="table">
+    <thead>
+      <tr>
+        <%= for {col,title} <- @cols do %>
+          <%= if (String.to_existing_atom(@show_cols[col])) do %>
+            <th scope="col"><%= title %></th>
+          <% end %>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for row <- @rows do %>
+        <tr>
+          <%= for {col,_title} <- @cols do %>
+            <%= if (String.to_existing_atom(@show_cols[col])) do %>
+              <%= case String.to_atom(col) do %>
+                <% :options -> %>
+                  <td>
+                    <span><%= link "show", to: "#", phx_click: "show", phx_value_id: row.id, class: "btn btn-primary"%></span>
+                    <span><%= link "edit", to: "#", phx_click: "edit", phx_value_id: row.id, class: "btn btn-secondary"%></span>
+                    <span><%= link "X",to: "#", phx_click: "delete", phx_value_id: row.id, data: [confirm: "Are you sure?"], class: "btn btn-danger" %></span>
+                  </td>
+                        <% _-> %>
+                          <td><%= Map.get(row,String.to_atom(col)) %></td>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <nav aria-label="Page navigation">
+          <ul class="pagination">
+            <%= if @page > 1 do %>
+              <li class="page-item">
+                <span><%= live_link "prev", to: Routes.live_path(@socket, PeriodLive.Index, @page - 1), class: "page-link" %></span>
+              </li>
+            <% end %>
+            <%= for i <- (@page - 5)..(@page + 5), i > 0 do %>
+              <li class="page-item">
+                <span><%= live_link i, to: Routes.live_path(@socket, PeriodLive.Index, i), class: "page-link" %></span>
+              </li>
+            <% end %>
+            <li class="page-item">
+              <span><%= live_link "next", to: Routes.live_path(@socket, PeriodLive.Index, @page + 1), replace: @page > 10, class: "page-link" %></span>
+            </li>
+          </ul>
+          <br>
+        </nav>
+      </div>
+      <div class="col-sm-4 offset-md-4 text-right">
+        <form phx-change="per_page">
+          Per Page: 
+          <select name="per_page" >
+            <%= for value <- @per_page_options do %>
+              <option value="<%= value %>" <%= (per_page_selected(@per_page, value)) %> ><%= value %></option>
+            <% end %>
+          </select>
+        </form>
+      </div>
+    </div>
+  </div>
+
